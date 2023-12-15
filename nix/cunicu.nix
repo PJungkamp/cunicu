@@ -7,12 +7,17 @@
 }:
 buildGoModule {
   pname = "cunicu";
-  version = "0.3.3";
-  vendorHash = "sha256-EDZJTQ/Ln4YVELZTTOGJr5S+d/UxfrSrJEBW7Nv/XsA=";
+  version = "v0.4.6";
+  vendorHash = lib.fakeHash;
   inherit src;
   CGO_ENABLED = 0;
   # These packages contain networking dependent tests which fail in the sandbox
-  excludedPackages = ["pkg/config" "pkg/selfupdate" "pkg/tty"];
+  excludedPackages = [
+    "pkg/config"
+    "pkg/selfupdate"
+    "pkg/tty"
+    "scripts"
+  ];
   postBuild = ''
     cunicu=$GOPATH/bin/cunicu
     $cunicu docs --with-frontmatter
